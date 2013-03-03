@@ -7,4 +7,4 @@ cd basicplib
 ./install.sh
 cd ..
 cd ..
-sudo rm -rf tmp
+rm -rf tmp
