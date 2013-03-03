@@ -24,6 +24,9 @@ def ensure_path(path):
 
 def get_size_str(path):
     size = get_size(path)
+    return get_size_str_from_size(size)
+
+def get_size_str_from_size(size):
     if size > 1000000000:
         return "%.2fG" % (float(size) / 1000000000)
     elif size > 1000000:
