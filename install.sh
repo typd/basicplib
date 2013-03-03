@@ -1,3 +1,3 @@
 set -e
-sudo python setup.py install
-sudo rm -rf basicplib.egg-info build dist
+python setup.py install
+rm -rf basicplib.egg-info build dist
