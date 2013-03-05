@@ -7,8 +7,8 @@ def purge_filename(name):
 def get_size(path):
     if os.path.isdir(path):
         total = 0
-        for f in os.listdir(path):
-            total += get_size(os.path.join(path, f))
+        for _file in os.listdir(path):
+            total += get_size(os.path.join(path, _file))
         return total
     else:
         return os.path.getsize(path)
@@ -16,9 +16,9 @@ def get_size(path):
 def ensure_path(path):
     if os.path.exists(path):
         return
-    dir = os.path.dirname(path)
-    if not os.path.exists(dir):
-        os.makedirs(dir)
+    directory = os.path.dirname(path)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
     if not os.path.isdir(path):
         open(path, 'w').close()
 

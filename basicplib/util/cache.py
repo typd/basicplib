@@ -1,17 +1,15 @@
 #!/bin/env python
 
 import json
-import os
 import sys
-import time
 import urllib
+from basicplib.util.timeutil import curr_time_int as current_time
 
 SECOND = 1
 MINUTE = 60
 HOUR = 3600
 DAY = 86400
 
-current_time = lambda: int(time.time())
 
 class Node(object):
     def __init__(self, key, val):
@@ -23,14 +21,14 @@ class Node(object):
         self.size = sys.getsizeof(val)
     
     def details(self, include_value=False):
-        d = {
+        detail = {
             'key': self.key,
             'bust': urllib.urlencode({'key': self.key}),
             'age': current_time() - self.age
         }
         if include_value:
-            d['val'] = self.val
-        return d
+            detail['val'] = self.val
+        return detail
 
 class Cache(object):
     def __init__(self, max_items=100, max_age=-1, max_size=-1, **kwargs):
@@ -39,6 +37,9 @@ class Cache(object):
         self.max_size = max_size
         self.size = 0
         self.clear()
+        self.cache = {}
+        self.head = None
+        self.tail = None
 
     def clear(self):
         self.cache = {}

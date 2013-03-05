@@ -1,6 +1,8 @@
 import time
 
-curr_time_int = lambda: int(time.time())
+#curr_time_int = lambda: int(time.time())
+def curr_time_int():
+    return int(time.time())
 
 def format_duration(duration):
     if duration < 60:
