@@ -17,7 +17,7 @@ def save_execute(func, *args, **kargs):
 
 def get_pids(keywords):
     if keywords == None or len(keywords) == 0:
-        raise ValueError("need keywords to kill process")
+        raise ValueError("need keywords")
     pscmd = 'ps auxwww | grep "' + '" | grep "'.join(keywords) + '"'
     proc = Popen(pscmd, stderr=PIPE, stdout=PIPE, shell=True)
     out, _ = proc.communicate()

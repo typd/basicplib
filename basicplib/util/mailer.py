@@ -3,14 +3,18 @@ from email.mime.text import MIMEText
 import threading
 
 class Mailer:
-    def __init__(self, smtp_host, from_addr=None):
+    def __init__(self, smtp_host, from_addr=None, subject_prefix=None):
         self.smtp = smtplib.SMTP(smtp_host)
         self.lock = threading.Lock()
         self.from_addr = from_addr
+        self.subject_prefix = subject_prefix
 
     def send(self, to_addr, subject, msg_str, from_addr=None):
         msg = MIMEText(msg_str)
-        msg['Subject'] = subject
+        if self.subject_prefix:
+            msg['Subject'] = self.subject_prefix + " " + subject
+        else:
+            msg['Subject'] = subject
         if not from_addr:
             from_addr = self.from_addr
         msg['From'] = from_addr
