@@ -1,29 +1,45 @@
 import smtplib
-import threading
+import os
 from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase
+from email.utils import formatdate
+from email import encoders as Encoders
 
-class Mailer:
-    def __init__(self, smtp_host, from_addr=None, subject_prefix=None):
+class Mailer(object):
+    def __init__(self, smtp_host, send_from=None, subject_prefix=None):
         self.smtp = smtplib.SMTP(smtp_host)
-        self.lock = threading.Lock()
-        self.from_addr = from_addr
+        self.send_from = send_from
         self.subject_prefix = subject_prefix
 
-    def send(self, to_addr, subject, msg_str, from_addr=None):
-        msg = MIMEText(msg_str)
+
+    def send(self, send_to, subject, text, files=None, text_type="plain"):
+        """ 
+        based on http://snippets.dzone.com/posts/show/2038
+        attachments can be specified as a list of strings [file_name, ...] or a list of tuples
+        containing intended names and file data [(file_name, data), ...]
+        """
+        assert type(send_to) == list
+        msg = MIMEMultipart()
+        msg['From'] = self.send_from 
+        msg['To'] = ', '.join(send_to)
+        msg['Date'] = formatdate(localtime=True)
         if self.subject_prefix:
             msg['Subject'] = self.subject_prefix + " " + subject
         else:
             msg['Subject'] = subject
-        if not from_addr:
-            from_addr = self.from_addr
-        msg['From'] = from_addr
-        to_addrs = [to_addr] if type(to_addr) == str else to_addr
-        msg['To'] = ','.join(to_addrs)
-        try:
-            self.lock.acquire()
-            self.smtp.sendmail(from_addr, to_addrs, msg.as_string())
-            self.smtp.quit()
-            return True
-        finally:
-            self.lock.release()
+        msg.attach(MIMEText(text, text_type))
+        for _file in files:
+            if type(_file) is tuple:
+                name, data = _file
+            else:
+                name = _file
+                data = open(name,"rb").read()
+            part = MIMEBase('application', "octet-stream")
+            part.set_payload(data)
+            Encoders.encode_base64(part)
+            part.add_header('Content-Disposition', 'attachment; filename="{}"'
+                    .format(os.path.basename(name)))
+            msg.attach(part)
+        smtp = smtplib.SMTP(self.smtp)
+        smtp.sendmail(self.send_from, send_to, msg.as_string())

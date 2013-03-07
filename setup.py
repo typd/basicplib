@@ -1,5 +1,9 @@
 #!/usr/bin/env python
-from setuptools import setup, find_packages
+try:
+    from setuptools import setup, find_packages
+except ImportError:
+    from distutils.core import setup
+
 import basicplib
 
 setup(

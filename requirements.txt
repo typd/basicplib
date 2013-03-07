@@ -1,1 +1,1 @@
-SQLAlchemy>=0.7.9
+wsgiref==0.1.2
