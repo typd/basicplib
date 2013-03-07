@@ -1,4 +1,4 @@
-from subprocess import Popen, PIPE
+from subprocess import check_output, CalledProcessError, Popen, PIPE
 
 #decrator
 def singleton(cls):
@@ -16,20 +16,15 @@ def save_execute(func, *args, **kargs):
         return None, False 
 
 def get_pids(keywords):
-    if keywords == None or len(keywords) == 0:
+    if not keywords:
         raise ValueError("need keywords")
     pscmd = 'ps auxwww | grep "' + '" | grep "'.join(keywords) + '"'
-    proc = Popen(pscmd, stderr=PIPE, stdout=PIPE, shell=True)
-    out, _ = proc.communicate()
-    exit_code = proc.poll()
-    if exit_code:
+    try:
+        print pscmd
+        out = check_output(pscmd, shell=True)
+    except CalledProcessError:
         return []
-    result = []
-    for line in out.splitlines():
-        if pscmd in line:
-            continue
-        parts = line.split()
-        result.append(parts[1])
+    result = [line.split()[1] for line in out.splitlines() if pscmd not in line]
     return result
 
 def kill_processes(keywords, hard_kill=False):

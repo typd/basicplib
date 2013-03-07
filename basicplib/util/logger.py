@@ -1,9 +1,12 @@
-from datetime import datetime
 import time
 import logging
+from datetime import datetime
+
 from basicplib.util.file import ensure_path
 
+
 _DEFAULT_PATH = "log/%s.log" % (datetime.utcnow().strftime('%Y-%m-%d'))
+
 
 def create_default_logger(path=_DEFAULT_PATH):
     logger = logging.getLogger("")

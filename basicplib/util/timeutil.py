@@ -4,6 +4,7 @@ import time
 def curr_time_int():
     return int(time.time())
 
+
 def format_duration(duration):
     if duration < 60:
         return '0:{0:02d}'.format(duration)

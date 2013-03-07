@@ -3,7 +3,9 @@
 import json
 import sys
 import urllib
+
 from basicplib.util.timeutil import curr_time_int as current_time
+
 
 SECOND = 1
 MINUTE = 60
@@ -110,6 +112,3 @@ class Cache(object):
                 self.tail = obj.prev
             self.size -= obj.size
             del self.cache[key]
-            
-
-   

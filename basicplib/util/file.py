@@ -4,6 +4,7 @@ def purge_filename(name):
     assert name != None
     return name.replace('/', ' ').replace(':', ' ')
 
+
 def get_size(path):
     if os.path.isdir(path):
         total = 0
@@ -13,6 +14,7 @@ def get_size(path):
     else:
         return os.path.getsize(path)
 
+
 def ensure_path(path):
     if os.path.exists(path):
         return
@@ -20,11 +22,13 @@ def ensure_path(path):
     if not os.path.exists(directory):
         os.makedirs(directory)
     if not os.path.isdir(path):
-        open(path, 'w').close()
+        open(path, 'a').close()
+
 
 def get_size_str(path):
     size = get_size(path)
     return get_size_str_from_size(size)
+
 
 def get_size_str_from_size(size):
     if size > 1000000000:

@@ -1,6 +1,6 @@
 import smtplib
-from email.mime.text import MIMEText
 import threading
+from email.mime.text import MIMEText
 
 class Mailer:
     def __init__(self, smtp_host, from_addr=None, subject_prefix=None):
