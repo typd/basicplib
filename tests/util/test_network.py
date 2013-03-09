@@ -1,4 +1,4 @@
-from basicplib.util.network import *
+#from basicplib.util.network import *
 
 """
 def test_get_str():

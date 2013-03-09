@@ -1,4 +1,4 @@
-from basicplib.util.strutil import *
+from basicplib.util.strutil import is_str
 
 def test_is_str():
     assert is_str('')

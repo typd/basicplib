@@ -1,8 +1,10 @@
 import basicplib.util.timeutil as t
 
+
 def test_curr_time_int():
     curr = t.curr_time_int()
     assert curr > 1361108082
+
 
 def test_format_duration():
     assert "0:00" == t.format_duration(0)

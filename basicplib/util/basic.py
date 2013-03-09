@@ -9,11 +9,13 @@ def singleton(cls):
         return instances[cls]
     return getinstance
 
+
 def save_execute(func, *args, **kargs):
     try:
         return func(*args, **kargs), True
     except:
         return None, False 
+
 
 def get_pids(keywords):
     if not keywords:
@@ -26,6 +28,7 @@ def get_pids(keywords):
         return []
     result = [line.split()[1] for line in out.splitlines() if pscmd not in line]
     return result
+
 
 def kill_processes(keywords, hard_kill=False):
     pids = get_pids(keywords)
@@ -43,6 +46,7 @@ def kill_processes(keywords, hard_kill=False):
         else:
             killed += 1
     return succ, killed 
+
 
 #def get_pid():
 #    return os.getpid()

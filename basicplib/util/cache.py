@@ -32,6 +32,7 @@ class Node(object):
             detail['val'] = self.val
         return detail
 
+
 class Cache(object):
     def __init__(self, max_items=100, max_age=-1, max_size=-1, **kwargs):
         self.max_items = max_items

@@ -1,5 +1,7 @@
-from basicplib.util.logger import * 
 import tempfile
+
+from basicplib.util.logger import create_default_logger
+
 
 def test_create_default_logger():
     path = tempfile.NamedTemporaryFile()
