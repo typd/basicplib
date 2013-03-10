@@ -22,7 +22,6 @@ def get_pids(keywords):
         raise ValueError("need keywords")
     pscmd = 'ps auxwww | grep "' + '" | grep "'.join(keywords) + '"'
     try:
-        print pscmd
         out = check_output(pscmd, shell=True)
     except CalledProcessError:
         return []
