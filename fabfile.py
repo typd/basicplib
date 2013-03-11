@@ -1,5 +1,6 @@
-from fabric.api import sudo, run, cd, env, settings
+from fabric.api import sudo, run, cd, env, settings, local
 
+# pylint: disable=C0103
 lib_name = "basicplib"
 git_url = "https://github.com/typd/basicplib"
 
@@ -18,3 +19,6 @@ def install():
             sudo("./install.sh")
     sudo("rm -rf %s" % temp_dir)
 
+
+def test():
+    local("py.test --cov basicplib")
