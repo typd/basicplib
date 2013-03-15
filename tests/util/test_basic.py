@@ -15,7 +15,7 @@ def test_singleton():
     acls = Bcls()
     bcls = Bcls()
     assert id(acls) != id(bcls)
-    assert 1 == 2
+#    assert 1 == 2
 
 
 def test_save_execute():
