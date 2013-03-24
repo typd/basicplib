@@ -1,5 +1,11 @@
 import os
 
+
+def save(data, path):
+    with open(path, 'w') as savedfile:
+        savedfile.write(data)
+
+
 def purge_filename(name):
     assert name != None
     return name.replace('/', ' ').replace(':', ' ')

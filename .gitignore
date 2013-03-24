@@ -1,6 +1,8 @@
 a.py
 b.py
 
+log/
+
 *.pyc
 ~*
 *.swp

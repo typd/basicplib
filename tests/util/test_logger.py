@@ -4,8 +4,16 @@ from basicplib.util.logger import create_default_logger
 
 
 def test_create_default_logger():
-    path = tempfile.NamedTemporaryFile()
-    logger = create_default_logger(path=path.name)
-    logger.info('log msg')
-    logger.debug('log msg')
+    tempf = tempfile.NamedTemporaryFile()
+    logger = create_default_logger(path=tempf.name)
+    logger.info('info msg')
+    logger.debug('debug msg')
+    logger.warn('warn msg')
+    logger.error("error msg")
+    logger.critical("critical msg")
+    try:
+        raise RuntimeError("Opa!")
+    except RuntimeError as exc:
+        logger.exception(exc)
+    tempf.close()
     

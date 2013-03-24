@@ -1,3 +1,6 @@
+logutils
+requests
+
 wsgiref==0.1.2
 pytest
 pytest-cov

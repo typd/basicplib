@@ -1,4 +1,5 @@
 import time
+import datetime
 
 #curr_time_int = lambda: int(time.time())
 def curr_time_int():
@@ -17,3 +18,7 @@ def format_duration(duration):
         minutes = (duration - (hours * 60 * 60)) // 60
         seconds = (duration - (hours * 60 * 60) - (minutes * 60))
         return '{0:d}:{1:02d}:{2:02d}'.format(hours, minutes, seconds)
+
+
+def shift_datetime(target, **kargs):
+    return target + datetime.timedelta(**kargs)

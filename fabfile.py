@@ -4,6 +4,7 @@ from fabric.api import sudo, run, cd, env, settings, local
 lib_name = "basicplib"
 git_url = "https://github.com/typd/basicplib"
 
+
 def install():
     if not env.host_string:
         env.host_string = raw_input("host: ")
