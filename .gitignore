@@ -2,6 +2,7 @@ a.py
 b.py
 
 log/
+htmlcov/
 
 *.pyc
 ~*

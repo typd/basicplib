@@ -22,4 +22,4 @@ def install():
 
 
 def test():
-    local("py.test --cov basicplib")
+    local("py.test --cov basicplib --cov-report html")
