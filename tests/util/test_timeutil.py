@@ -19,6 +19,4 @@ def test_shift_datetime():
     now = datetime.datetime.now()
     shifted = tutil.shift_datetime(datetime.datetime.now(), days=-10)
     delta = now - shifted
-    print delta
-    print delta.total_seconds()
     assert abs(delta.total_seconds() - 10 * 24 * 3600) < 0.1 
