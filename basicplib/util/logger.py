@@ -5,7 +5,7 @@ from datetime import datetime
 
 from logutils.colorize import ColorizingStreamHandler
 
-from basicplib.util.file import ensure_path
+from basicplib.util.fileutil import ensure_path
 
 
 _DEFAULT_PATH = "log/{}.log".format(datetime.utcnow().strftime('%Y-%m-%d'))

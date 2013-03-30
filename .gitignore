@@ -9,3 +9,7 @@ htmlcov/
 *.swp
 env
 .coverage
+
+basicplib.egg-info
+build
+dist
