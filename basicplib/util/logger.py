@@ -8,7 +8,7 @@ from logutils.colorize import ColorizingStreamHandler
 from basicplib.util.file import ensure_path
 
 
-_DEFAULT_PATH = "log/%s.log" % (datetime.utcnow().strftime('%Y-%m-%d'))
+_DEFAULT_PATH = "log/{}.log".format(datetime.utcnow().strftime('%Y-%m-%d'))
 
 
 class RainbowLoggingHandler(ColorizingStreamHandler):

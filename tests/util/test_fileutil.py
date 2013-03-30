@@ -2,8 +2,8 @@ import tempfile
 import shutil
 import os
 
-from basicplib.util.file import purge_filename, ensure_path, get_size
-from basicplib.util.file import get_size_str
+from basicplib.util.fileutil import purge_filename, ensure_path, get_size
+from basicplib.util.fileutil import get_size_str
 
 
 def write_file(path, length):
