@@ -1,9 +1,17 @@
 import os
+import zipfile
 
 
 def save(data, path):
     with open(path, 'w') as savedfile:
         savedfile.write(data)
+
+
+def unzip(path, to_dir='.'):
+    zfile = zipfile.ZipFile(path, 'r')
+    for filename in zfile.namelist():
+        data = zfile.read(filename)
+        save(data, os.path.join(to_dir, filename))
 
 
 def purge_filename(name):
