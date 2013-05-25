@@ -3,7 +3,7 @@ import shutil
 import os
 
 from basicplib.util.fileutil import purge_filename, ensure_path, get_size
-from basicplib.util.fileutil import get_size_str, save
+from basicplib.util.fileutil import get_size_str, save, ensure_dir
 
 
 def write_file(path, length):
@@ -13,6 +13,7 @@ def write_file(path, length):
 def test_save():
     directory = tempfile.mkdtemp()
     save(b' ' * 20, os.path.join(directory, 'temp.dat'))
+    save(b' ' * 20, os.path.join(directory, 'dir/temp.dat'))
     shutil.rmtree(directory)
 
 def test_purge_filename():
@@ -20,6 +21,19 @@ def test_purge_filename():
     assert purge_filename('aa/b/c') == 'aa b c'
     assert purge_filename('aa/b/c/') == 'aa b c '
     assert purge_filename('aa:b:c:') == 'aa b c '
+
+def test_ensure_dir():
+    def _assert(path):
+        ensure_dir(path)
+        dir_name = os.path.dirname(path)
+        assert os.path.exists(dir_name)
+        if not os.path.isdir(path):
+            assert not os.path.exists(path)
+    directory = tempfile.mkdtemp()
+    _assert(os.path.join(directory, "abc/"))
+    _assert(os.path.join(directory, "abc/file"))
+    _assert(os.path.join(directory, "dir1/dir2/file"))
+    shutil.rmtree(directory)
 
 def test_ensure_path():
     def _assert(path, is_dir):

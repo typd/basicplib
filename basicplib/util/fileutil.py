@@ -3,13 +3,16 @@ import zipfile
 
 
 def save(data, path):
+    ensure_dir(path)
     flag = 'w'
     if bytes == type(data):
         flag = 'wb'
     with open(path, flag) as savedfile:
         savedfile.write(data)
 
-def unzip(path, to_dir='.'):
+def unzip(path, to_dir=None):
+    if not to_dir:
+        to_dir = os.path.dirname(path)
     zfile = zipfile.ZipFile(path, 'r')
     for filename in zfile.namelist():
         data = zfile.read(filename)
@@ -28,12 +31,17 @@ def get_size(path):
     else:
         return os.path.getsize(path)
 
-def ensure_path(path):
+def ensure_dir(path):
     if os.path.exists(path):
         return
     directory = os.path.dirname(path)
     if not os.path.exists(directory):
         os.makedirs(directory)
+
+def ensure_path(path):
+    if os.path.exists(path):
+        return
+    ensure_dir(path)
     if not os.path.isdir(path):
         open(path, 'a').close()
 
