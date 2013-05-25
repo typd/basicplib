@@ -3,21 +3,23 @@ import shutil
 import os
 
 from basicplib.util.fileutil import purge_filename, ensure_path, get_size
-from basicplib.util.fileutil import get_size_str
+from basicplib.util.fileutil import get_size_str, save
 
 
 def write_file(path, length):
     ensure_path(path)
-    with open(path, 'w') as _file:
-        _file.write(' ' * length)
+    save(' ' * length, path)
 
+def test_save():
+    directory = tempfile.mkdtemp()
+    save(b' ' * 20, os.path.join(directory, 'temp.dat'))
+    shutil.rmtree(directory)
 
 def test_purge_filename():
     assert purge_filename('aa/b') == 'aa b'
     assert purge_filename('aa/b/c') == 'aa b c'
     assert purge_filename('aa/b/c/') == 'aa b c '
     assert purge_filename('aa:b:c:') == 'aa b c '
-
 
 def test_ensure_path():
     def _assert(path, is_dir):
@@ -30,7 +32,6 @@ def test_ensure_path():
     _assert(os.path.join(directory, "dir1/dir2/file"), False)
     shutil.rmtree(directory)
 
-
 def test_file_size_dir():
     _dir = tempfile.mkdtemp()
     path1 = os.path.join(_dir, "abc/file")
@@ -42,12 +43,10 @@ def test_file_size_dir():
     assert 1534 == get_size(_dir)
     assert 1234 == get_size(os.path.join(_dir, "abc"))
 
-
 def test_file_size_file():
     def _assert(length, size_str):
         temp = tempfile.NamedTemporaryFile()
-        temp.write(' ' * length)
-        temp.flush()
+        write_file(temp.name, length)
         assert length == get_size(temp.name)
         assert size_str == get_size_str(temp.name)
         temp.close()

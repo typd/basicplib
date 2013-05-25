@@ -1,6 +1,4 @@
-from subprocess import Popen, PIPE
-
-from basicplib.util.basic import singleton, save_execute, kill_processes
+from basicplib.util.basic import singleton, save_execute
 
 
 def test_singleton():
@@ -15,8 +13,6 @@ def test_singleton():
     acls = Bcls()
     bcls = Bcls()
     assert id(acls) != id(bcls)
-#    assert 1 == 2
-
 
 def test_save_execute():
     def _divide(avar, bvar):
@@ -37,13 +33,3 @@ def test_save_execute():
     assert val == 2 and res == True
     val, res = save_execute(_func_without_return, 2.0, 4.0)
     assert (val == None) and (res == True)
-    from basicplib.util.network import download
-    val, res = save_execute(download, "wrongurl")
-    assert (val == None) and (res == False)
-
-
-def test_kill_processes():
-    _ = Popen('sleep 1234509887', stderr=PIPE, stdout=PIPE, shell=True)
-    assert (True, 0) == kill_processes(['sleep', '1234509888'], True)
-    assert (True, 1) == kill_processes(['sleep', '1234509887'], True)
-    assert (True, 0) == kill_processes(['sleep', '1234509887'], True)

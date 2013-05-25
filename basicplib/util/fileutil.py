@@ -3,9 +3,11 @@ import zipfile
 
 
 def save(data, path):
-    with open(path, 'w') as savedfile:
+    flag = 'w'
+    if bytes == type(data):
+        flag = 'wb'
+    with open(path, flag) as savedfile:
         savedfile.write(data)
-
 
 def unzip(path, to_dir='.'):
     zfile = zipfile.ZipFile(path, 'r')
@@ -13,11 +15,9 @@ def unzip(path, to_dir='.'):
         data = zfile.read(filename)
         save(data, os.path.join(to_dir, filename))
 
-
 def purge_filename(name):
     assert name != None
     return name.replace('/', ' ').replace(':', ' ')
-
 
 def get_size(path):
     if os.path.isdir(path):
@@ -28,7 +28,6 @@ def get_size(path):
     else:
         return os.path.getsize(path)
 
-
 def ensure_path(path):
     if os.path.exists(path):
         return
@@ -38,11 +37,9 @@ def ensure_path(path):
     if not os.path.isdir(path):
         open(path, 'a').close()
 
-
 def get_size_str(path):
     size = get_size(path)
     return get_size_str_from_size(size)
-
 
 def get_size_str_from_size(size):
     if size > 1000000000:

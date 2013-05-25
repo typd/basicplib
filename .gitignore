@@ -8,6 +8,7 @@ htmlcov/
 ~*
 *.swp
 env
+env3
 .coverage
 
 basicplib.egg-info
