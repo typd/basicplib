@@ -4,11 +4,18 @@ import os
 
 from basicplib.util.fileutil import purge_filename, ensure_path, get_size
 from basicplib.util.fileutil import get_size_str, save, ensure_dir
+from basicplib.util.fileutil import is_dir_path
 
 
 def write_file(path, length):
     ensure_path(path)
     save(' ' * length, path)
+
+def test_is_dir_path():
+    assert is_dir_path('abc/')
+    assert is_dir_path('abc/a') == False
+    assert is_dir_path('') == False
+    assert is_dir_path(None) == False
 
 def test_save():
     directory = tempfile.mkdtemp()

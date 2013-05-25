@@ -2,6 +2,11 @@ import os
 import zipfile
 
 
+def is_dir_path(path):
+    if not path:
+        return False
+    return path.endswith(os.path.sep)
+
 def save(data, path):
     ensure_dir(path)
     flag = 'w'
@@ -16,7 +21,7 @@ def unzip(path, to_dir=None):
     to_dir = os.path.join(to_dir, os.path.splitext(os.path.basename(path))[0])
     zfile = zipfile.ZipFile(path, 'r')
     for filename in zfile.namelist():
-        if os.path.isdir(filename):
+        if is_dir_path(filename):
             continue
         data = zfile.read(filename)
         save(data, os.path.join(to_dir, filename))
@@ -45,7 +50,7 @@ def ensure_path(path):
     if os.path.exists(path):
         return
     ensure_dir(path)
-    if not os.path.isdir(path):
+    if not is_dir_path(path):
         open(path, 'a').close()
 
 def get_size_str(path):
