@@ -13,8 +13,11 @@ def save(data, path):
 def unzip(path, to_dir=None):
     if not to_dir:
         to_dir = os.path.dirname(path)
+    to_dir = os.path.join(to_dir, os.path.splitext(os.path.basename(path))[0])
     zfile = zipfile.ZipFile(path, 'r')
     for filename in zfile.namelist():
+        if os.path.isdir(filename):
+            continue
         data = zfile.read(filename)
         save(data, os.path.join(to_dir, filename))
 
