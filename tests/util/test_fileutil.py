@@ -4,12 +4,21 @@ import os
 
 from basicplib.util.fileutil import purge_filename, ensure_path, get_size
 from basicplib.util.fileutil import get_size_str, save, ensure_dir
-from basicplib.util.fileutil import is_dir_path
+from basicplib.util.fileutil import is_dir_path, convert_to_valid_path
 
 
 def write_file(path, length):
     ensure_path(path)
     save(' ' * length, path)
+
+def test_convert_to_valid_path():
+    assert convert_to_valid_path('aB098') == 'aB098'
+    assert convert_to_valid_path('aB098.dat') == 'aB098.dat'
+    assert convert_to_valid_path('a/') == 'a/'
+    assert convert_to_valid_path('a/8') == 'a/8'
+    assert convert_to_valid_path('abc *()') == 'abc'
+    assert convert_to_valid_path('abc *():', '-') == 'abc ----'
+    assert convert_to_valid_path('abc\ndef\tg') == 'abcdefg'
 
 def test_is_dir_path():
     assert is_dir_path('abc/')

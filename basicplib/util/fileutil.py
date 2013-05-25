@@ -2,6 +2,16 @@ import os
 import zipfile
 
 
+def convert_to_valid_path(path, substitution=''):
+    name = ''
+    valid_chars = ['.', ' ', '_', '-', os.path.sep]
+    for char in path:
+        if char.isalpha() or char.isdigit() or char in valid_chars:
+            name += char
+        else:
+            name += substitution
+    return name.strip()
+
 def is_dir_path(path):
     if not path:
         return False
